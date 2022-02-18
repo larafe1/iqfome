@@ -11,7 +11,7 @@ import { StatusBar } from 'expo-status-bar';
 import { ThemeProvider } from 'styled-components';
 
 import theme from '@/global/styles/theme';
-import { AuthProvider } from '@/hooks';
+import { AuthProvider, RestaurantsProvider } from '@/hooks';
 import { Routes } from '@/routes';
 
 export default function App() {
@@ -27,7 +27,9 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <StatusBar style="light" />
       <AuthProvider>
-        <Routes />
+        <RestaurantsProvider>
+          <Routes />
+        </RestaurantsProvider>
       </AuthProvider>
     </ThemeProvider>
   );

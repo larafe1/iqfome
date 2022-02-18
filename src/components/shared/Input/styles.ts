@@ -1,26 +1,32 @@
 import { TextInput } from 'react-native';
 
 import { RFValue } from 'react-native-responsive-fontsize';
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 
 import { InputProps } from '@/types';
 
 export const InputField = styled(TextInput)<InputProps>`
-  width: 100%;
+  width: ${({ width }) => width};
 
-  margin-bottom: 16px;
-
-  padding: 12px 16px;
+  padding: ${({ paddingYX }) => `${paddingYX[0]} ${paddingYX[1]}`};
 
   font-size: ${RFValue(14)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
 
   color: ${({ theme }) => theme.colors.titleLight};
-  background-color: ${({ theme }) => theme.colors.shape};
+  background-color: ${({ theme }) => theme.colors.shapeDark};
 
-  border: ${({ theme, hasError }) =>
-    hasError
-      ? `1px solid ${theme.colors.attention}`
-      : `1px solid ${theme.colors.shapeDark}`};
-  border-radius: 5px;
+  ${({ outlined, hasError }) =>
+    outlined
+      ? css`
+          border: ${({ theme }) =>
+            hasError
+              ? `1px solid ${theme.colors.attention}`
+              : `1px solid ${theme.colors.border}`};
+        `
+      : css`
+          border: none;
+        `};
+
+  border-radius: ${({ rounded }) => (rounded ? '5px' : '0')};
 `;

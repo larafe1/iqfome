@@ -4,11 +4,13 @@ export default {
     title: '#495458',
     titleLight: '#828282',
     shape: '#fff',
-    shapeDark: '#ccc',
-    background: '#ededed',
-    attention: '#e83f5b'
+    shapeDark: '#ebebec',
+    border: '#ccc',
+    background: '#f2f3f5',
+    backgroundLight: '#f5f5f5',
+    attention: '#ffc93c',
+    error: '#e83f5b'
   },
-
   fonts: {
     regular: 'Rubik_400Regular',
     medium: 'Rubik_500Medium',

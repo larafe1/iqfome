@@ -7,7 +7,7 @@ import config from '@/config';
 import { api } from '@/services';
 import {
   AuthContextProps,
-  AuthProviderProps,
+  ProviderProps,
   User,
   SignInPayload,
   AuthResponse
@@ -15,7 +15,7 @@ import {
 
 const AuthContext = createContext({} as AuthContextProps);
 
-function AuthProvider({ children }: AuthProviderProps) {
+function AuthProvider({ children }: ProviderProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState({} as User);
 
@@ -28,6 +28,7 @@ function AuthProvider({ children }: AuthProviderProps) {
       );
       const { token, user } = data;
       setUser(user);
+      api.defaults.headers.common.Authorization = `Bearer ${token}`;
       await AsyncStorage.setItem(config.userStorageKey, JSON.stringify(user));
       await AsyncStorage.setItem(config.userTokenStorageKey, token);
     } catch (err) {
@@ -39,12 +40,17 @@ function AuthProvider({ children }: AuthProviderProps) {
 
   const signOut = async () => {
     setUser({} as User);
+    await AsyncStorage.removeItem(config.userStorageKey);
     await AsyncStorage.removeItem(config.userTokenStorageKey);
   };
 
   const loadStorageData = async () => {
+    const token = await AsyncStorage.getItem(config.userTokenStorageKey);
     const rawUserData = await AsyncStorage.getItem(config.userStorageKey);
 
+    if (token) {
+      api.defaults.headers.common.Authorization = `Bearer ${token}`;
+    }
     if (rawUserData) {
       const parsedUserData: User = JSON.parse(rawUserData);
       setUser(parsedUserData);

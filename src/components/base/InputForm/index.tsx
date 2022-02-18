@@ -22,11 +22,15 @@ export function InputForm({
         name={name}
         render={({ field: { value, onChange } }) => (
           <Input
+            width="100%"
+            paddingYX={['12px', '16px']}
             value={value}
             onChangeText={onChange}
             secureTextEntry={isPasswordField}
             autoCapitalize={autoCapitalize ? autoCapitalize : 'none'}
             hasError={!!error}
+            outlined
+            rounded
             {...rest}
           />
         )}

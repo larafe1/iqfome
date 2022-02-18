@@ -40,15 +40,6 @@ export const Title = styled.Text`
   color: ${({ theme }) => theme.colors.shape};
 `;
 
-export const Underline = styled.View`
-  width: 35%;
-  height: 3px;
-
-  margin-top: 20px;
-
-  background-color: ${({ theme }) => theme.colors.shape};
-`;
-
 export const Subtitle = styled.Text`
   margin-top: 20px;
 
@@ -78,7 +69,7 @@ export const Footer = styled.View`
 `;
 
 export const InputWrapper = styled.View`
-  margin-bottom: 12px;
+  margin-bottom: 26px;
 `;
 
 export const InputLabel = styled.Text`

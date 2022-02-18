@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 
-import { InputForm, Button } from '@/components';
+import { Underline, InputForm, Button } from '@/components';
 import { useAuth } from '@/hooks';
 import { FormData } from '@/types';
 
@@ -52,7 +52,12 @@ export function SignIn() {
             <S.Greetings>Bem-vindo(a) ao</S.Greetings>
             <S.TitleWrapper>
               <S.Title>iqfome</S.Title>
-              <S.Underline />
+              <Underline
+                width="35%"
+                height="3px"
+                marginTop="20px"
+                color="shape"
+              />
               <S.Subtitle>Seus restaurantes prediletos!</S.Subtitle>
             </S.TitleWrapper>
             <S.SignInTitle>Faça seu login</S.SignInTitle>
