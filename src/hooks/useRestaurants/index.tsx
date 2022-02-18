@@ -1,9 +1,7 @@
 import React, { createContext, useState, useContext } from 'react';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AxiosResponse } from 'axios';
 
-import config from '@/config';
 import { api } from '@/services';
 import {
   RestaurantsContextProps,
@@ -28,10 +26,6 @@ function RestaurantsProvider({ children }: ProviderProps) {
         '/restaurants'
       );
       setRestaurants(data);
-      await AsyncStorage.setItem(
-        config.restaurantsStorageKey,
-        JSON.stringify(data)
-      );
     } catch (err) {
       console.error(err);
     } finally {
@@ -58,7 +52,6 @@ function RestaurantsProvider({ children }: ProviderProps) {
       setIsLoading(true);
       const { data }: AxiosResponse<Dish[]> = await api.get('/dishes');
       setDishes(data);
-      await AsyncStorage.setItem(config.dishesStorageKey, JSON.stringify(data));
     } catch (err) {
       console.error(err);
     } finally {

@@ -8,6 +8,7 @@ export default {
     border: '#ccc',
     background: '#f2f3f5',
     backgroundLight: '#f5f5f5',
+    success: '#65c18c',
     attention: '#ffc93c',
     error: '#e83f5b'
   },

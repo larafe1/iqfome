@@ -2,9 +2,9 @@ import { Ionicons, Feather } from '@expo/vector-icons';
 import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 
-export const Wrapper = styled.View`
+export const Wrapper = styled.TouchableOpacity`
   width: 90%;
-  height: 80px;
+  height: 90px;
 
   flex-direction: row;
   align-items: center;
@@ -49,13 +49,15 @@ export const AdditionalInformationWrapper = styled.View`
   flex-direction: row;
   justify-content: space-between;
 
-  margin-top: 8px;
+  margin-top: 10px;
 `;
 
 export const AdditionalInformationSection = styled.View`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+
+  margin-right: 8px;
 `;
 
 export const IonicIcon = styled(Ionicons)`

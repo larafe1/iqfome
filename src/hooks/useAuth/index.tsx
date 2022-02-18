@@ -10,7 +10,9 @@ import {
   ProviderProps,
   User,
   SignInPayload,
-  AuthResponse
+  SignUpPayload,
+  SignInAuthResponse,
+  SignUpAuthResponse
 } from '@/types';
 
 const AuthContext = createContext({} as AuthContextProps);
@@ -22,7 +24,7 @@ function AuthProvider({ children }: ProviderProps) {
   const signIn = async (payload: SignInPayload) => {
     try {
       setIsLoading(true);
-      const { data }: AxiosResponse<AuthResponse> = await api.post(
+      const { data }: AxiosResponse<SignInAuthResponse> = await api.post(
         '/sign-in',
         payload
       );
@@ -31,6 +33,22 @@ function AuthProvider({ children }: ProviderProps) {
       api.defaults.headers.common.Authorization = `Bearer ${token}`;
       await AsyncStorage.setItem(config.userStorageKey, JSON.stringify(user));
       await AsyncStorage.setItem(config.userTokenStorageKey, token);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const signUp = async (payload: SignUpPayload) => {
+    try {
+      setIsLoading(true);
+      const { data: createdUserData }: AxiosResponse<SignUpAuthResponse> =
+        await api.post('/sign-up', payload);
+      await signIn({
+        email: createdUserData.email,
+        password: payload.password
+      });
     } catch (err) {
       console.error(err);
     } finally {
@@ -62,7 +80,7 @@ function AuthProvider({ children }: ProviderProps) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isLoading, user, signIn, signOut }}>
+    <AuthContext.Provider value={{ isLoading, user, signIn, signUp, signOut }}>
       {children}
     </AuthContext.Provider>
   );

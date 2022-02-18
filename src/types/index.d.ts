@@ -9,12 +9,19 @@ import {
 import { Control } from 'react-hook-form';
 import { DefaultTheme } from 'styled-components';
 
-export type FormData = {
+export type SignInFormData = {
   email: string;
   password: string;
 };
 
-export type SignInPayload = FormData;
+export interface SignUpFormData extends SignInFormData {
+  name: string;
+  confirmPassword: string;
+}
+
+export type SignInPayload = SignInFormData;
+
+export type SignUpPayload = Omit<SignUpFormData, 'confirmPassword'>;
 
 export type User = {
   id: string;
@@ -25,6 +32,7 @@ export type AuthContextProps = {
   isLoading: boolean;
   user: User;
   signIn: (payload: SignInPayload) => Promise<void>;
+  signUp: (payload: SignUpPayload) => Promise<void>;
   signOut: () => Promise<void>;
 };
 
@@ -32,9 +40,16 @@ export type ProviderProps = {
   children: ReactNode;
 };
 
-export type AuthResponse = {
+export type SignInAuthResponse = {
   token: string;
   user: User;
+};
+
+export type SignUpAuthResponse = {
+  id: string;
+  name: string;
+  email: string;
+  created_at: string;
 };
 
 export type Dish = {
@@ -47,8 +62,9 @@ export type Dish = {
 
 export type RestaurantEssentials = {
   id: string;
+  background_url: string;
   delivery_time: string;
-  image_url: string;
+  logo_url: string;
   name: string;
   rating: number;
 };
@@ -81,7 +97,7 @@ export interface InputProps extends TextInputProps {
   paddingYX: [string, string];
   outlined?: boolean;
   rounded?: boolean;
-  hasError?: boolean;
+  leftCornerRounded?: boolean;
 }
 
 export type Sections = 'restaurants' | 'dishes';
@@ -103,6 +119,10 @@ export type UnderlineProps = {
 
 type AutoCapitalizeOptions = 'none' | 'sentences' | 'words' | 'characters';
 
+export type InputFormWrapperProps = {
+  hasError: boolean;
+};
+
 export interface InputFormProps extends TextInputProps {
   control: Control;
   name: string;
@@ -111,15 +131,23 @@ export interface InputFormProps extends TextInputProps {
   error: string;
 }
 
-export type ItemCardProps = {
+export type DashboardItemCardProps = {
   type: Sections;
   title: string;
   firstSubtitle: string | number;
   secondSubtitle?: string | number;
   imageUrl: string;
+  onPress: () => void;
 };
 
-export interface ItemsListProps extends FlatListProps {
+export interface DashboardItemsListProps extends FlatListProps {
   data: any[];
   isARestaurant?: boolean;
 }
+
+export type RestaurantDishCardProps = {
+  description: string;
+  imageUrl: string;
+  name: string;
+  price: number;
+};

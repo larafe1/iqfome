@@ -16,17 +16,22 @@ export const InputField = styled(TextInput)<InputProps>`
   color: ${({ theme }) => theme.colors.titleLight};
   background-color: ${({ theme }) => theme.colors.shapeDark};
 
-  ${({ outlined, hasError }) =>
-    outlined
+  border: ${({ outlined, theme }) =>
+    outlined ? `1px solid ${theme.colors.border}` : 'none'};
+
+  ${({ leftCornerRounded }) =>
+    leftCornerRounded
       ? css`
-          border: ${({ theme }) =>
-            hasError
-              ? `1px solid ${theme.colors.attention}`
-              : `1px solid ${theme.colors.border}`};
+          border-top-left-radius: 5px;
+          border-bottom-left-radius: 5px;
         `
       : css`
-          border: none;
-        `};
+          border-radius: 0;
+        `}
 
-  border-radius: ${({ rounded }) => (rounded ? '5px' : '0')};
+  ${({ rounded }) =>
+    rounded &&
+    css`
+      border-radius: 5px;
+    `}
 `;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { StatusBar } from 'expo-status-bar';
 
-import { Input, Underline, ItemsList } from '@/components';
+import { Loading, Input, Underline, DashboardItemsList } from '@/components';
 import { useRestaurants, useAuth } from '@/hooks';
 import { SearchResults, Sections } from '@/types';
 import { parseGreetings, Icons } from '@/utils';
@@ -20,7 +20,6 @@ export function Dashboard() {
     restaurants,
     dishes,
     getRestaurants,
-    // getRestaurantById,
     getDishes
   } = useRestaurants();
 
@@ -54,10 +53,6 @@ export function Dashboard() {
     }
   };
 
-  // const handleGetRestaurantById = async (id: string) => {
-  //   await getRestaurantById(id);
-  // };
-
   useEffect(() => {
     getRestaurants();
     getDishes();
@@ -67,7 +62,7 @@ export function Dashboard() {
     <>
       <StatusBar style="dark" />
       {isUserLoading || isRestaurantsLoading ? (
-        <S.Loading />
+        <Loading />
       ) : (
         <S.Wrapper>
           <S.Header>
@@ -80,16 +75,16 @@ export function Dashboard() {
             </S.UserWrapper>
             <S.QuestionTitle>O que vamos comer hoje?</S.QuestionTitle>
             <S.SearchWrapper>
-              <S.SearchButton onPress={handleSearch}>
-                <S.SearchIcon name={Icons.SEARCH} />
-              </S.SearchButton>
               <Input
                 width="80%"
-                paddingYX={['12px', '0']}
+                paddingYX={['12px', '16px']}
                 placeholder="Pesquisar"
                 value={search}
                 onChangeText={setSearch}
               />
+              <S.SearchButton onPress={handleSearch}>
+                <S.SearchIcon name={Icons.SEARCH} />
+              </S.SearchButton>
             </S.SearchWrapper>
           </S.Header>
 
@@ -127,12 +122,12 @@ export function Dashboard() {
 
             <S.BodyContentWrapper>
               {isARestaurant ? (
-                <ItemsList
+                <DashboardItemsList
                   data={searchResults.length ? searchResults : restaurants}
                   isARestaurant
                 />
               ) : (
-                <ItemsList
+                <DashboardItemsList
                   data={searchResults.length ? searchResults : dishes}
                 />
               )}

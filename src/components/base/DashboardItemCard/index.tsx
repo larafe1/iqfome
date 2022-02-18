@@ -1,20 +1,21 @@
 import React from 'react';
 
 import config from '@/config';
-import { ItemCardProps } from '@/types';
+import { DashboardItemCardProps } from '@/types';
 import { Icons } from '@/utils';
 
 import * as S from './styles';
 
-export function ItemCard({
+export function DashboardItemCard({
   type,
   title,
   firstSubtitle,
   secondSubtitle,
-  imageUrl
-}: ItemCardProps) {
+  imageUrl,
+  ...rest
+}: DashboardItemCardProps) {
   return (
-    <S.Wrapper>
+    <S.Wrapper {...rest}>
       <S.ImageWrapper>
         <S.Image source={{ uri: imageUrl || config.placeholderImgUrl }} />
       </S.ImageWrapper>

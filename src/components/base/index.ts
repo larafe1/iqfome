@@ -1,3 +1,4 @@
+export * from './DashboardItemCard';
+export * from './DashboardItemsList';
 export * from './InputForm';
-export * from './ItemCard';
-export * from './ItemsList';
+export * from './RestaurantDishCard';
